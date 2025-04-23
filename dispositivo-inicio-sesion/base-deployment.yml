@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${artifactId}-service
+  labels:
+    app: ${artifactId}
+spec:
+  selector:
+    app: ${artifactId}
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${artifactId}
+  labels:
+    app: ${artifactId}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${artifactId}
+  template:
+    metadata:
+      labels:
+        app: ${artifactId}
+    spec:
+      containers:
+      - name: ${artifactId}
+        image: <REGISTRY_DOCKER_SERVER>/<CI_COMMIT_BRANCH>/${artifactId}:develop
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /${artifactId}/actuator/health/liveness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 40
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /${artifactId}/actuator/health/readiness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 2
+          timeoutSeconds: 10
+        envFrom:
+        - configMapRef:
+            name: base-config
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: harbormain
+      restartPolicy: Always
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ${artifactId}-gateway
+spec:
+  rules:
+  - host: <CUSTOM_SUBDOMAIN>-ecommerce.coppel.io
+    http:
+      paths:
+      - backend:
+          serviceName: ${artifactId}-service
+          servicePort: http
+        path: /${artifactId}
+        pathType: ImplementationSpecific

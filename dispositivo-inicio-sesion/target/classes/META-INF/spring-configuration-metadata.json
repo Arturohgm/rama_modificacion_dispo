@@ -1,0 +1,42 @@
+{
+  "groups": [
+    {
+      "name": "configuraciones",
+      "type": "com.coppel.omnicanal.dispositivoiniciosesion.config.AppConfig",
+      "sourceType": "com.coppel.omnicanal.dispositivoiniciosesion.config.AppConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "configuraciones.allowed-headers",
+      "type": "java.lang.String",
+      "sourceType": "com.coppel.omnicanal.dispositivoiniciosesion.config.AppConfig"
+    },
+    {
+      "name": "configuraciones.allowed-methods",
+      "type": "java.lang.String",
+      "sourceType": "com.coppel.omnicanal.dispositivoiniciosesion.config.AppConfig"
+    },
+    {
+      "name": "configuraciones.allowed-origins",
+      "type": "java.lang.String",
+      "sourceType": "com.coppel.omnicanal.dispositivoiniciosesion.config.AppConfig"
+    },
+    {
+      "name": "configuraciones.auth-uri",
+      "type": "java.lang.String",
+      "sourceType": "com.coppel.omnicanal.dispositivoiniciosesion.config.AppConfig"
+    },
+    {
+      "name": "configuraciones.content-security-policy",
+      "type": "java.lang.String",
+      "sourceType": "com.coppel.omnicanal.dispositivoiniciosesion.config.AppConfig"
+    },
+    {
+      "name": "configuraciones.ignore-session",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.coppel.omnicanal.dispositivoiniciosesion.config.AppConfig"
+    }
+  ],
+  "hints": []
+}

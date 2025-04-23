@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+
+  <springProfile name="default">
+    <appender name="STDOUT"
+      class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <pattern>
+          <![CDATA[[%d{yyyy-MM-dd HH:mm:ss:SSS}][%X{traceId}][%X{spanId}][%c{2}][%p]: %m%n]]></pattern>
+      </encoder>
+    </appender>
+    <root level="info">
+      <appender-ref ref="STDOUT"/>
+    </root>
+  </springProfile>
+
+  <springProfile name="dev|authoring">
+    <appender name="STDOUT"
+      class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <pattern>
+          <![CDATA[[%X{traceId}][%X{spanId}][%c{2}][%p]: %m%n]]></pattern>
+      </encoder>
+    </appender>
+    <root level="info">
+      <appender-ref ref="STDOUT"/>
+    </root>
+  </springProfile>
+
+  <springProfile name="prod">
+    <appender name="jsonConsoleAppender"
+      class="ch.qos.logback.core.ConsoleAppender">
+      <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+    <root level="INFO">
+      <appender-ref ref="jsonConsoleAppender"/>
+    </root>
+  </springProfile>
+</configuration>

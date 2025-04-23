@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 21
+Implementation-Title: dispositivo-inicio-sesion
+Implementation-Version: 1.0.0-SNAPSHOT
+Implementation-Vendor: Coppel - División Omnicanal
+Created-By: Maven Integration for Eclipse
+
